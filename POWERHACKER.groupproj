@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{10E084F9-6443-4EA0-BA5C-7B069A06BB42}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="OpenPacker.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\OpenProtector\OpenProtector.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="OpenPacker">
+        <MSBuild Projects="OpenPacker.cbproj"/>
+    </Target>
+    <Target Name="OpenPacker:Clean">
+        <MSBuild Projects="OpenPacker.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OpenPacker:Make">
+        <MSBuild Projects="OpenPacker.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="OpenProtector">
+        <MSBuild Projects="..\OpenProtector\OpenProtector.cbproj"/>
+    </Target>
+    <Target Name="OpenProtector:Clean">
+        <MSBuild Projects="..\OpenProtector\OpenProtector.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OpenProtector:Make">
+        <MSBuild Projects="..\OpenProtector\OpenProtector.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="OpenPacker;OpenProtector"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="OpenPacker:Clean;OpenProtector:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="OpenPacker:Make;OpenProtector:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
